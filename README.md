@@ -1,6 +1,6 @@
 # food_delivery
 
-A new Flutter project.
+Aplikasi Projek Pengembangan Mobile
 
 ## Getting Started
 
