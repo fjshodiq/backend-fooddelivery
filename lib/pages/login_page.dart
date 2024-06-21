@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:food_delivery/components/my_button.dart';
 import 'package:food_delivery/components/my_textfield.dart';
-import 'package:food_delivery/pages/home_page.dart';
+import 'package:food_delivery/services/auth/auth_services.dart';
 
 class LoginPage extends StatefulWidget {
   final void Function()? onTap;
 
-  LoginPage({super.key, required this.onTap});
+  const LoginPage({super.key, required this.onTap});
 
   @override
   State<LoginPage> createState() => _LoginPageState();
@@ -19,20 +19,40 @@ class _LoginPageState extends State<LoginPage> {
   final TextEditingController passwordController = TextEditingController();
 
   // login method
-  void login() {
-    /*
+  Future<void> login() async {
+    // get instance of auth service
+    final _authService = AuthService();
 
-    fill out authentication here
+    // try sign in
+    try {
+      await _authService.signInWithEmailPassword(
+        emailController.text,
+        passwordController.text,
+      );
+    } 
 
-    */
-
-    // navigate to home page
-    Navigator.push(
-        context,
-        MaterialPageRoute(
-          builder: (context) => HomePage(),
-        ));
+    // display any errors
+    catch (e) {
+      showDialog(
+        context: context,
+        builder: (context) => AlertDialog(
+          title: Text(e.toString()),
+        ),
+      );
+    }
   }
+
+    // forgot password
+    void forgotPw () {
+      showDialog(
+        context: context,
+        builder: (context) => AlertDialog(
+          backgroundColor: Theme.of(context).colorScheme.background,
+          title: Text("User tapped forgot password."),
+        ),
+      );
+    }
+  
 
   @override
   Widget build(BuildContext context) {
@@ -42,7 +62,6 @@ class _LoginPageState extends State<LoginPage> {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-
             //logo
             Icon(
               Icons.lock_open_rounded,
@@ -64,7 +83,7 @@ class _LoginPageState extends State<LoginPage> {
             const SizedBox(
               height: 25,
             ),
-            
+
             // email textfield
             MyTextField(
               controller: emailController,

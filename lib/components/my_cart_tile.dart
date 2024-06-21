@@ -7,10 +7,7 @@ import 'package:provider/provider.dart';
 class MyCartTile extends StatelessWidget {
   final CartItem cartItem;
 
-  const MyCartTile({
-    super.key, 
-    required this.cartItem
-    });
+  const MyCartTile({super.key, required this.cartItem});
 
   @override
   Widget build(BuildContext context) {
@@ -53,22 +50,22 @@ class MyCartTile extends StatelessWidget {
                         style: TextStyle(
                             color: Theme.of(context).colorScheme.primary),
                       ),
+
+                      SizedBox(height: 10),
+
+                      // increment or decrement quantity
+                      QuantitySelector(
+                        quantity: cartItem.quantity,
+                        food: cartItem.food,
+                        onDecrement: () {
+                          restaurant.removeFromCart(cartItem);
+                        },
+                        onIncrement: () {
+                          restaurant.addToCart(
+                              cartItem.food, cartItem.selectedAddons);
+                        },
+                      ),
                     ],
-                  ),
-
-                  const Spacer(),
-
-                  // increment or decrement quantity
-                  QuantitySelector(
-                    quantity: cartItem.quantity,
-                    food: cartItem.food,
-                    onDecrement: () {
-                      restaurant.removeFromCart(cartItem);
-                    },
-                    onIncrement: () {
-                      restaurant.addToCart(
-                          cartItem.food, cartItem.selectedAddons);
-                    },
                   ),
                 ],
               ),

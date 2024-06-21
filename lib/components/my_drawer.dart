@@ -1,9 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:food_delivery/components/my_drawer_tile.dart';
 import 'package:food_delivery/pages/settings_page.dart';
+import 'package:food_delivery/services/auth/auth_services.dart';
 
 class MyDrawer extends StatelessWidget {
   const MyDrawer({super.key});
+
+  void logout() {
+    final authService = AuthService();
+    authService.signOut();
+  }
 
   @override
   Widget build(BuildContext context) {
